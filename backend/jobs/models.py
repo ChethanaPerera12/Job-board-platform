@@ -8,8 +8,10 @@ class Company(models.Model):
         on_delete=models.CASCADE,
         related_name='company'
     )
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True)
+    name = models.CharField(max_length=200, unique=True)
+    description = models.TextField()
+    website = models.URLField(blank=True, null=True)
+    location = models.CharField(max_length=100)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -19,6 +21,7 @@ class Company(models.Model):
 # 2. Category Model
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=100, unique=True)
 
     class Meta:
         verbose_name_plural = "Categories"
